@@ -1,0 +1,338 @@
+Enter password: ****
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 9
+Server version: 5.5.16 MySQL Community Server (GPL)
+
+Copyright (c) 2000, 2011, Oracle and/or its affiliates. All rights reserved.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| book               |
+| mysql              |
+| performance_schema |
+| ramanujan4         |
++--------------------+
+5 rows in set (0.00 sec)
+
+mysql> use ramanujan4;
+Database changed
+mysql> show tables;
++----------------------+
+| Tables_in_ramanujan4 |
++----------------------+
+| kings_marks          |
+| mad                  |
+| mad1                 |
+| madar                |
++----------------------+
+4 rows in set (0.01 sec)
+
+mysql> drop table mad;
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> drop table mad1;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> show tables;
++----------------------+
+| Tables_in_ramanujan4 |
++----------------------+
+| kings_marks          |
+| madar                |
++----------------------+
+2 rows in set (0.00 sec)
+
+mysql> desc kings_marks;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| id    | int(20)     | YES  |     | NULL    |       |
+| name  | varchar(20) | YES  |     | NULL    |       |
+| marks | int(20)     | YES  |     | NULL    |       |
+| grade | varchar(20) | YES  |     | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+4 rows in set (0.01 sec)
+
+mysql> select * from kings_marks;
++------+-------------+-------+-------+
+| id   | name        | marks | grade |
++------+-------------+-------+-------+
+|  101 | MADAR       |   100 | A     |
+|  102 | sai krishna |   100 | A     |
+|  103 | saheed      |   100 | A     |
+|  104 | pranith     |    99 | B     |
+|  105 | aparna      |    80 | B     |
+|  106 | jayanthi    |    70 | c     |
++------+-------------+-------+-------+
+6 rows in set (0.00 sec)
+
+mysql> select * from kings_marks where name like 'a%';
++------+--------+-------+-------+
+| id   | name   | marks | grade |
++------+--------+-------+-------+
+|  105 | aparna |    80 | B     |
++------+--------+-------+-------+
+1 row in set (0.01 sec)
+
+mysql> select * from kings_marks where name like '%a';
++------+-------------+-------+-------+
+| id   | name        | marks | grade |
++------+-------------+-------+-------+
+|  102 | sai krishna |   100 | A     |
+|  105 | aparna      |    80 | B     |
++------+-------------+-------+-------+
+2 rows in set (0.00 sec)
+
+mysql> select * from kings_marks where name like '%a%';
++------+-------------+-------+-------+
+| id   | name        | marks | grade |
++------+-------------+-------+-------+
+|  101 | MADAR       |   100 | A     |
+|  102 | sai krishna |   100 | A     |
+|  103 | saheed      |   100 | A     |
+|  104 | pranith     |    99 | B     |
+|  105 | aparna      |    80 | B     |
+|  106 | jayanthi    |    70 | c     |
++------+-------------+-------+-------+
+6 rows in set (0.00 sec)
+
+mysql> alter kings_marks add country varchar(200);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'kings_marks add country varchar(200)' at line 1
+mysql> alter table kings_marks add (country varchar(200));
+Query OK, 6 rows affected (0.02 sec)
+Records: 6  Duplicates: 0  Warnings: 0
+
+mysql> select * from kings_marks;
++------+-------------+-------+-------+---------+
+| id   | name        | marks | grade | country |
++------+-------------+-------+-------+---------+
+|  101 | MADAR       |   100 | A     | NULL    |
+|  102 | sai krishna |   100 | A     | NULL    |
+|  103 | saheed      |   100 | A     | NULL    |
+|  104 | pranith     |    99 | B     | NULL    |
+|  105 | aparna      |    80 | B     | NULL    |
+|  106 | jayanthi    |    70 | c     | NULL    |
++------+-------------+-------+-------+---------+
+6 rows in set (0.00 sec)
+
+mysql> update kings_marks set country="germany" where id=101;
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from kings_marks;
++------+-------------+-------+-------+---------+
+| id   | name        | marks | grade | country |
++------+-------------+-------+-------+---------+
+|  101 | MADAR       |   100 | A     | germany |
+|  102 | sai krishna |   100 | A     | NULL    |
+|  103 | saheed      |   100 | A     | NULL    |
+|  104 | pranith     |    99 | B     | NULL    |
+|  105 | aparna      |    80 | B     | NULL    |
+|  106 | jayanthi    |    70 | c     | NULL    |
++------+-------------+-------+-------+---------+
+6 rows in set (0.00 sec)
+
+mysql> update kings_marks set country="paris" where id=102;
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from kings_marks;
++------+-------------+-------+-------+---------+
+| id   | name        | marks | grade | country |
++------+-------------+-------+-------+---------+
+|  101 | MADAR       |   100 | A     | germany |
+|  102 | sai krishna |   100 | A     | paris   |
+|  103 | saheed      |   100 | A     | NULL    |
+|  104 | pranith     |    99 | B     | NULL    |
+|  105 | aparna      |    80 | B     | NULL    |
+|  106 | jayanthi    |    70 | c     | NULL    |
++------+-------------+-------+-------+---------+
+6 rows in set (0.00 sec)
+
+mysql> update kings_marks set country="USA" where id=103;
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from kings_marks;
++------+-------------+-------+-------+---------+
+| id   | name        | marks | grade | country |
++------+-------------+-------+-------+---------+
+|  101 | MADAR       |   100 | A     | germany |
+|  102 | sai krishna |   100 | A     | paris   |
+|  103 | saheed      |   100 | A     | USA     |
+|  104 | pranith     |    99 | B     | NULL    |
+|  105 | aparna      |    80 | B     | NULL    |
+|  106 | jayanthi    |    70 | c     | NULL    |
++------+-------------+-------+-------+---------+
+6 rows in set (0.00 sec)
+
+mysql> update kings_marks set country="malysia" where id=104;
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from kings_marks;
++------+-------------+-------+-------+---------+
+| id   | name        | marks | grade | country |
++------+-------------+-------+-------+---------+
+|  101 | MADAR       |   100 | A     | germany |
+|  102 | sai krishna |   100 | A     | paris   |
+|  103 | saheed      |   100 | A     | USA     |
+|  104 | pranith     |    99 | B     | malysia |
+|  105 | aparna      |    80 | B     | NULL    |
+|  106 | jayanthi    |    70 | c     | NULL    |
++------+-------------+-------+-------+---------+
+6 rows in set (0.00 sec)
+
+mysql> update kings_marks set country="India" where id=105;
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from kings_marks;
++------+-------------+-------+-------+---------+
+| id   | name        | marks | grade | country |
++------+-------------+-------+-------+---------+
+|  101 | MADAR       |   100 | A     | germany |
+|  102 | sai krishna |   100 | A     | paris   |
+|  103 | saheed      |   100 | A     | USA     |
+|  104 | pranith     |    99 | B     | malysia |
+|  105 | aparna      |    80 | B     | India   |
+|  106 | jayanthi    |    70 | c     | NULL    |
++------+-------------+-------+-------+---------+
+6 rows in set (0.00 sec)
+
+mysql> update kings_marks set country="London" where id=106;
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from kings_marks;
++------+-------------+-------+-------+---------+
+| id   | name        | marks | grade | country |
++------+-------------+-------+-------+---------+
+|  101 | MADAR       |   100 | A     | germany |
+|  102 | sai krishna |   100 | A     | paris   |
+|  103 | saheed      |   100 | A     | USA     |
+|  104 | pranith     |    99 | B     | malysia |
+|  105 | aparna      |    80 | B     | India   |
+|  106 | jayanthi    |    70 | c     | London  |
++------+-------------+-------+-------+---------+
+6 rows in set (0.00 sec)
+
+mysql> select * from kings_marks where country="germany" or country="USA";
++------+--------+-------+-------+---------+
+| id   | name   | marks | grade | country |
++------+--------+-------+-------+---------+
+|  101 | MADAR  |   100 | A     | germany |
+|  103 | saheed |   100 | A     | USA     |
++------+--------+-------+-------+---------+
+2 rows in set (0.00 sec)
+
+mysql> select * from kings_marks where country="germany" or country="USA" or
+counrty ="paris" or country="india";
+ERROR 1054 (42S22): Unknown column 'counrty' in 'where clause'
+mysql> select * from kings_marks where country="germany" or country="USA" or country ="paris" or country="india";
++------+-------------+-------+-------+---------+
+| id   | name        | marks | grade | country |
++------+-------------+-------+-------+---------+
+|  101 | MADAR       |   100 | A     | germany |
+|  102 | sai krishna |   100 | A     | paris   |
+|  103 | saheed      |   100 | A     | USA     |
+|  105 | aparna      |    80 | B     | India   |
++------+-------------+-------+-------+---------+
+4 rows in set (0.00 sec)
+
+mysql> select * from kings_marks where country in( germany,paris);
+ERROR 1054 (42S22): Unknown column 'germany' in 'where clause'
+mysql> select * from kings_marks where country in( "germany","paris");
++------+-------------+-------+-------+---------+
+| id   | name        | marks | grade | country |
++------+-------------+-------+-------+---------+
+|  101 | MADAR       |   100 | A     | germany |
+|  102 | sai krishna |   100 | A     | paris   |
++------+-------------+-------+-------+---------+
+2 rows in set (0.01 sec)
+
+mysql> select * from kings_marks;
++------+-------------+-------+-------+---------+
+| id   | name        | marks | grade | country |
++------+-------------+-------+-------+---------+
+|  101 | MADAR       |   100 | A     | germany |
+|  102 | sai krishna |   100 | A     | paris   |
+|  103 | saheed      |   100 | A     | USA     |
+|  104 | pranith     |    99 | B     | malysia |
+|  105 | aparna      |    80 | B     | India   |
+|  106 | jayanthi    |    70 | c     | London  |
++------+-------------+-------+-------+---------+
+6 rows in set (0.00 sec)
+
+mysql> select * from kings_marks where marks between 70 and 99;
++------+----------+-------+-------+---------+
+| id   | name     | marks | grade | country |
++------+----------+-------+-------+---------+
+|  104 | pranith  |    99 | B     | malysia |
+|  105 | aparna   |    80 | B     | India   |
+|  106 | jayanthi |    70 | c     | London  |
++------+----------+-------+-------+---------+
+3 rows in set (0.00 sec)
+
+mysql> create table madar1(id int(20) primary key, name varchar(200) not null);
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> desc madar1;
++-------+--------------+------+-----+---------+-------+
+| Field | Type         | Null | Key | Default | Extra |
++-------+--------------+------+-----+---------+-------+
+| id    | int(20)      | NO   | PRI | NULL    |       |
+| name  | varchar(200) | NO   |     | NULL    |       |
++-------+--------------+------+-----+---------+-------+
+2 rows in set (0.01 sec)
+
+mysql> insert into madar1 values(101,"madar");
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from madar1;
++-----+-------+
+| id  | name  |
++-----+-------+
+| 101 | madar |
++-----+-------+
+1 row in set (0.00 sec)
+
+mysql> insert into madar1 values(101,"madar");
+ERROR 1062 (23000): Duplicate entry '101' for key 'PRIMARY'
+mysql> drop table madar1;
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> create table madar1(id int(20) not null, name varchar(200) not null unique);
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> desc madar1;
++-------+--------------+------+-----+---------+-------+
+| Field | Type         | Null | Key | Default | Extra |
++-------+--------------+------+-----+---------+-------+
+| id    | int(20)      | NO   |     | NULL    |       |
+| name  | varchar(200) | NO   | PRI | NULL    |       |
++-------+--------------+------+-----+---------+-------+
+2 rows in set (0.01 sec)
+
+mysql> alter table madar1 add coutry varchar(20) not null unique;
+Query OK, 0 rows affected (0.02 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc madar1;
++--------+--------------+------+-----+---------+-------+
+| Field  | Type         | Null | Key | Default | Extra |
++--------+--------------+------+-----+---------+-------+
+| id     | int(20)      | NO   |     | NULL    |       |
+| name   | varchar(200) | NO   | PRI | NULL    |       |
+| coutry | varchar(20)  | NO   | UNI | NULL    |       |
++--------+--------------+------+-----+---------+-------+
+3 rows in set (0.01 sec)

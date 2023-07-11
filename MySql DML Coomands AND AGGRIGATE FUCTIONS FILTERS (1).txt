@@ -1,0 +1,464 @@
+Enter password: ****
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 5
+Server version: 5.5.16 MySQL Community Server (GPL)
+
+Copyright (c) 2000, 2011, Oracle and/or its affiliates. All rights reserved.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| book               |
+| mysql              |
+| performance_schema |
+| ramanujan4         |
++--------------------+
+5 rows in set (0.00 sec)
+
+mysql> use ramanujan4;
+Database changed
+mysql> show tables;
++----------------------+
+| Tables_in_ramanujan4 |
++----------------------+
+| kings_marks          |
+| madar                |
++----------------------+
+2 rows in set (0.00 sec)
+
+mysql> select * from kings_marks;
++------+---------+-------+-------+--------+
+| id   | name    | marks | grade | county |
++------+---------+-------+-------+--------+
+|  101 | MADAR   |   100 | NULL  | india  |
+|  102 | RAMESH  |    99 | NULL  | india  |
+|  103 | PRANITH |    99 | NULL  | india  |
+|  104 | NAVEEN  |   100 | NULL  | india  |
+| NULL | NULL    |  NULL | NULL  | india  |
++------+---------+-------+-------+--------+
+5 rows in set (0.00 sec)
+
+mysql> update kings_marks set county="german" where id=101 and id=103;
+Query OK, 0 rows affected (0.01 sec)
+Rows matched: 0  Changed: 0  Warnings: 0
+
+mysql> select * from kings_marks;
++------+---------+-------+-------+--------+
+| id   | name    | marks | grade | county |
++------+---------+-------+-------+--------+
+|  101 | MADAR   |   100 | NULL  | india  |
+|  102 | RAMESH  |    99 | NULL  | india  |
+|  103 | PRANITH |    99 | NULL  | india  |
+|  104 | NAVEEN  |   100 | NULL  | india  |
+| NULL | NULL    |  NULL | NULL  | india  |
++------+---------+-------+-------+--------+
+5 rows in set (0.00 sec)
+
+mysql> select * from kings_marks;show tables;use ramanujan4;show databases;use ramanujan4;show tables;select * from kings_marks;update kings_marks set county="german" where id=101 and id=103;
+mysql> UPDATE KINGS_MARKS SET COUNTY='GERMEN' WHERE ID=103;
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from kings_marks;
++------+---------+-------+-------+--------+
+| id   | name    | marks | grade | county |
++------+---------+-------+-------+--------+
+|  101 | MADAR   |   100 | NULL  | india  |
+|  102 | RAMESH  |    99 | NULL  | india  |
+|  103 | PRANITH |    99 | NULL  | GERMEN |
+|  104 | NAVEEN  |   100 | NULL  | india  |
+| NULL | NULL    |  NULL | NULL  | india  |
++------+---------+-------+-------+--------+
+5 rows in set (0.00 sec)
+
+mysql> UPDATE KINGS_MARKS SET COUNTY="CANADA" WHERE ID=101;
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from kings_marks;
++------+---------+-------+-------+--------+
+| id   | name    | marks | grade | county |
++------+---------+-------+-------+--------+
+|  101 | MADAR   |   100 | NULL  | CANADA |
+|  102 | RAMESH  |    99 | NULL  | india  |
+|  103 | PRANITH |    99 | NULL  | GERMEN |
+|  104 | NAVEEN  |   100 | NULL  | india  |
+| NULL | NULL    |  NULL | NULL  | india  |
++------+---------+-------+-------+--------+
+5 rows in set (0.00 sec)
+
+mysql> SELECT * FROM KINGS_MARKS WHERE MARKS>90 AND WHERE COUNTY='CANADA';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'WHERE COUNTY='CANADA'' at line 1
+mysql> SELECT * FROM KINGS_MARKS WHERE MARKS>90 AND COUNTY='CANADA';
++------+-------+-------+-------+--------+
+| id   | name  | marks | grade | county |
++------+-------+-------+-------+--------+
+|  101 | MADAR |   100 | NULL  | CANADA |
++------+-------+-------+-------+--------+
+1 row in set (0.00 sec)
+
+mysql> SELECT * FROM KINGS_MARKS WHERE MARKS>90 OR COUNTY='CANADA';
++------+---------+-------+-------+--------+
+| id   | name    | marks | grade | county |
++------+---------+-------+-------+--------+
+|  101 | MADAR   |   100 | NULL  | CANADA |
+|  102 | RAMESH  |    99 | NULL  | india  |
+|  103 | PRANITH |    99 | NULL  | GERMEN |
+|  104 | NAVEEN  |   100 | NULL  | india  |
++------+---------+-------+-------+--------+
+4 rows in set (0.02 sec)
+
+mysql> INSERT INTO KINGS_MARKS VALUES (105,'JAIPAL',100,'A','INDIA';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1
+mysql> INSERT INTO KINGS_MARKS VALUES (105,'JAIPAL',100,'A','INDIA');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> SELECT * FROM KINGS_MARKS;
++------+---------+-------+-------+--------+
+| id   | name    | marks | grade | county |
++------+---------+-------+-------+--------+
+|  101 | MADAR   |   100 | NULL  | CANADA |
+|  102 | RAMESH  |    99 | NULL  | india  |
+|  103 | PRANITH |    99 | NULL  | GERMEN |
+|  104 | NAVEEN  |   100 | NULL  | india  |
+| NULL | NULL    |  NULL | NULL  | india  |
+|  105 | JAIPAL  |   100 | A     | INDIA  |
++------+---------+-------+-------+--------+
+6 rows in set (0.00 sec)
+
+mysql> UPDATE KINGS_MARKS SET MARKS=70 WHERE ID=105;
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> SELECT * FROM KINGS_MARKS;
++------+---------+-------+-------+--------+
+| id   | name    | marks | grade | county |
++------+---------+-------+-------+--------+
+|  101 | MADAR   |   100 | NULL  | CANADA |
+|  102 | RAMESH  |    99 | NULL  | india  |
+|  103 | PRANITH |    99 | NULL  | GERMEN |
+|  104 | NAVEEN  |   100 | NULL  | india  |
+| NULL | NULL    |  NULL | NULL  | india  |
+|  105 | JAIPAL  |    70 | A     | INDIA  |
++------+---------+-------+-------+--------+
+6 rows in set (0.00 sec)
+
+mysql> SELECT * FROM KINGS_MARKS WHERE MARKS>90 OR COUNTY='CANADA';
++------+---------+-------+-------+--------+
+| id   | name    | marks | grade | county |
++------+---------+-------+-------+--------+
+|  101 | MADAR   |   100 | NULL  | CANADA |
+|  102 | RAMESH  |    99 | NULL  | india  |
+|  103 | PRANITH |    99 | NULL  | GERMEN |
+|  104 | NAVEEN  |   100 | NULL  | india  |
++------+---------+-------+-------+--------+
+4 rows in set (0.00 sec)
+
+mysql> UPDATE KINGS_MARKS SET NAME="MANJUNATH", MARKS=100,GRADE='A' WHERE ID=NULL;
+Query OK, 0 rows affected (0.01 sec)
+Rows matched: 0  Changed: 0  Warnings: 0
+
+mysql> UPDATE KINGS_MARKS SET ID=106, MARKS=100,GRADE='A' WHERE NAME=NULL;
+Query OK, 0 rows affected (0.00 sec)
+Rows matched: 0  Changed: 0  Warnings: 0
+
+mysql> UPDATE KINGS_MARKS SET ID=106, MARKS=100,GRADE='A' WHERE NAME='NULL';
+Query OK, 0 rows affected (0.00 sec)
+Rows matched: 0  Changed: 0  Warnings: 0
+
+mysql> UPDATE KINGS_MARKS SET NAME="MANJUNATH", MARKS=100,GRADE='A' WHERE COUNTY='india';
+Query OK, 4 rows affected (0.00 sec)
+Rows matched: 4  Changed: 4  Warnings: 0
+
+mysql> select *from kings_marks;
++------+-----------+-------+-------+--------+
+| id   | name      | marks | grade | county |
++------+-----------+-------+-------+--------+
+|  101 | MADAR     |   100 | NULL  | CANADA |
+|  102 | MANJUNATH |   100 | A     | india  |
+|  103 | PRANITH   |    99 | NULL  | GERMEN |
+|  104 | MANJUNATH |   100 | A     | india  |
+| NULL | MANJUNATH |   100 | A     | india  |
+|  105 | MANJUNATH |   100 | A     | INDIA  |
++------+-----------+-------+-------+--------+
+6 rows in set (0.00 sec)
+
+mysql> delete from kings_marks where name="MANJUNATH";
+Query OK, 4 rows affected (0.01 sec)
+
+mysql> select *from kings_marks;
++------+---------+-------+-------+--------+
+| id   | name    | marks | grade | county |
++------+---------+-------+-------+--------+
+|  101 | MADAR   |   100 | NULL  | CANADA |
+|  103 | PRANITH |    99 | NULL  | GERMEN |
++------+---------+-------+-------+--------+
+2 rows in set (0.00 sec)
+
+mysql> UPDATE KINGS_MARKS SET GRADE='A' WHERE ID =101 OR ID=103;
+Query OK, 2 rows affected (0.01 sec)
+Rows matched: 2  Changed: 2  Warnings: 0
+
+mysql> select *from kings_marks;
++------+---------+-------+-------+--------+
+| id   | name    | marks | grade | county |
++------+---------+-------+-------+--------+
+|  101 | MADAR   |   100 | A     | CANADA |
+|  103 | PRANITH |    99 | A     | GERMEN |
++------+---------+-------+-------+--------+
+2 rows in set (0.00 sec)
+
+mysql> UPDATE KINGS_MARKS SET GRADE='A' WHERE ID =101 AND. ID=103;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '=103' at line 1
+mysql> UPDATE KINGS_MARKS SET GRADE='A' WHERE ID =101 AND ID=103;
+Query OK, 0 rows affected (0.00 sec)
+Rows matched: 0  Changed: 0  Warnings: 0
+
+mysql> DELETE FROM KINGS_MARKS WHERE MARKS=99;
+Query OK, 1 row affected (0.01 sec)
+
+mysql> SELECT * FROM KINGS_MARKS;
++------+-------+-------+-------+--------+
+| id   | name  | marks | grade | county |
++------+-------+-------+-------+--------+
+|  101 | MADAR |   100 | A     | CANADA |
++------+-------+-------+-------+--------+
+1 row in set (0.00 sec)
+
+mysql> ALTER TABLE KINGS_MARKS DROP COUTY;
+ERROR 1091 (42000): Can't DROP 'COUTY'; check that column/key exists
+mysql> ALTER TABLE KINGS_MARKS DROP COUNTY;
+Query OK, 1 row affected (0.02 sec)
+Records: 1  Duplicates: 0  Warnings: 0
+
+mysql> SELECT * FROM KINGS_MARKS;
++------+-------+-------+-------+
+| id   | name  | marks | grade |
++------+-------+-------+-------+
+|  101 | MADAR |   100 | A     |
++------+-------+-------+-------+
+1 row in set (0.00 sec)
+
+mysql> insert into kings_marks values(102,"sai krishna",100,"A"),(103,"saheed",100,"
+A"),(104,"pranith",99,"B"),(105,"aparna",80,"B"),(106,"jayanthi",70,"c");
+Query OK, 5 rows affected (0.00 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+mysql> SELECT * FROM KINGS_MARKS;
++------+-------------+-------+-------+
+| id   | name        | marks | grade |
++------+-------------+-------+-------+
+|  101 | MADAR       |   100 | A     |
+|  102 | sai krishna |   100 | A     |
+|  103 | saheed      |   100 | A     |
+|  104 | pranith     |    99 | B     |
+|  105 | aparna      |    80 | B     |
+|  106 | jayanthi    |    70 | c     |
++------+-------------+-------+-------+
+6 rows in set (0.00 sec)
+
+mysql> SELECT * FROM KINGS_MARKS order by name;
++------+-------------+-------+-------+
+| id   | name        | marks | grade |
++------+-------------+-------+-------+
+|  105 | aparna      |    80 | B     |
+|  106 | jayanthi    |    70 | c     |
+|  101 | MADAR       |   100 | A     |
+|  104 | pranith     |    99 | B     |
+|  103 | saheed      |   100 | A     |
+|  102 | sai krishna |   100 | A     |
++------+-------------+-------+-------+
+6 rows in set (0.01 sec)
+
+mysql> SELECT * FROM KINGS_MARKS order by name asc;
++------+-------------+-------+-------+
+| id   | name        | marks | grade |
++------+-------------+-------+-------+
+|  105 | aparna      |    80 | B     |
+|  106 | jayanthi    |    70 | c     |
+|  101 | MADAR       |   100 | A     |
+|  104 | pranith     |    99 | B     |
+|  103 | saheed      |   100 | A     |
+|  102 | sai krishna |   100 | A     |
++------+-------------+-------+-------+
+6 rows in set (0.00 sec)
+
+mysql> SELECT * FROM KINGS_MARKS order by name desc;
++------+-------------+-------+-------+
+| id   | name        | marks | grade |
++------+-------------+-------+-------+
+|  102 | sai krishna |   100 | A     |
+|  103 | saheed      |   100 | A     |
+|  104 | pranith     |    99 | B     |
+|  101 | MADAR       |   100 | A     |
+|  106 | jayanthi    |    70 | c     |
+|  105 | aparna      |    80 | B     |
++------+-------------+-------+-------+
+6 rows in set (0.00 sec)
+
+mysql> SELECT * FROM KINGS_MARKS order by marks desc;
++------+-------------+-------+-------+
+| id   | name        | marks | grade |
++------+-------------+-------+-------+
+|  101 | MADAR       |   100 | A     |
+|  102 | sai krishna |   100 | A     |
+|  103 | saheed      |   100 | A     |
+|  104 | pranith     |    99 | B     |
+|  105 | aparna      |    80 | B     |
+|  106 | jayanthi    |    70 | c     |
++------+-------------+-------+-------+
+6 rows in set (0.00 sec)
+
+mysql> SELECT * FROM KINGS_MARKS order by marks;
++------+-------------+-------+-------+
+| id   | name        | marks | grade |
++------+-------------+-------+-------+
+|  106 | jayanthi    |    70 | c     |
+|  105 | aparna      |    80 | B     |
+|  104 | pranith     |    99 | B     |
+|  101 | MADAR       |   100 | A     |
+|  102 | sai krishna |   100 | A     |
+|  103 | saheed      |   100 | A     |
++------+-------------+-------+-------+
+6 rows in set (0.00 sec)
+
+mysql> SELECT * FROM KINGS_MARKS order by grade;
++------+-------------+-------+-------+
+| id   | name        | marks | grade |
++------+-------------+-------+-------+
+|  101 | MADAR       |   100 | A     |
+|  102 | sai krishna |   100 | A     |
+|  103 | saheed      |   100 | A     |
+|  104 | pranith     |    99 | B     |
+|  105 | aparna      |    80 | B     |
+|  106 | jayanthi    |    70 | c     |
++------+-------------+-------+-------+
+6 rows in set (0.00 sec)
+
+mysql> SELECT * FROM KINGS_MARKS order by grade desc;
++------+-------------+-------+-------+
+| id   | name        | marks | grade |
++------+-------------+-------+-------+
+|  106 | jayanthi    |    70 | c     |
+|  104 | pranith     |    99 | B     |
+|  105 | aparna      |    80 | B     |
+|  101 | MADAR       |   100 | A     |
+|  102 | sai krishna |   100 | A     |
+|  103 | saheed      |   100 | A     |
++------+-------------+-------+-------+
+6 rows in set (0.00 sec)
+
+mysql> select min(marks) from kings_marks;
++------------+
+| min(marks) |
++------------+
+|         70 |
++------------+
+1 row in set (0.01 sec)
+
+mysql> select *,min(marks) from kings_marks;
++------+-------+-------+-------+------------+
+| id   | name  | marks | grade | min(marks) |
++------+-------+-------+-------+------------+
+|  101 | MADAR |   100 | A     |         70 |
++------+-------+-------+-------+------------+
+1 row in set (0.00 sec)
+
+mysql> select id, name grade,min(marks) from kings_marks;
++------+-------+------------+
+| id   | grade | min(marks) |
++------+-------+------------+
+|  101 | MADAR |         70 |
++------+-------+------------+
+1 row in set (0.00 sec)
+
+mysql> select * from kings_marks where marks=min(marks);
+ERROR 1111 (HY000): Invalid use of group function
+mysql> select * from kings_marks where min(marks);
+ERROR 1111 (HY000): Invalid use of group function
+mysql> select min(marks) from kings_marks;
++------------+
+| min(marks) |
++------------+
+|         70 |
++------------+
+1 row in set (0.00 sec)
+
+mysql> select min(marks) as smallestmarks from kings_marks;
++---------------+
+| smallestmarks |
++---------------+
+|            70 |
++---------------+
+1 row in set (0.01 sec)
+
+mysql> select * from kings_marks where marks=70;
++------+----------+-------+-------+
+| id   | name     | marks | grade |
++------+----------+-------+-------+
+|  106 | jayanthi |    70 | c     |
++------+----------+-------+-------+
+1 row in set (0.00 sec)
+
+mysql> select * from kings_marks where (select min(marks) from kings_marks);
++------+-------------+-------+-------+
+| id   | name        | marks | grade |
++------+-------------+-------+-------+
+|  101 | MADAR       |   100 | A     |
+|  102 | sai krishna |   100 | A     |
+|  103 | saheed      |   100 | A     |
+|  104 | pranith     |    99 | B     |
+|  105 | aparna      |    80 | B     |
+|  106 | jayanthi    |    70 | c     |
++------+-------------+-------+-------+
+6 rows in set (0.00 sec)
+
+mysql> select * from kings_marks where marks=(select min(marks) from kings_marks);
++------+----------+-------+-------+
+| id   | name     | marks | grade |
++------+----------+-------+-------+
+|  106 | jayanthi |    70 | c     |
++------+----------+-------+-------+
+1 row in set (0.00 sec)
+
+mysql> select max(marks) as maximummarks from kings_marks;
++--------------+
+| maximummarks |
++--------------+
+|          100 |
++--------------+
+1 row in set (0.00 sec)
+
+mysql> select avg(marks) as averagemarks from kings_marks;
++--------------+
+| averagemarks |
++--------------+
+|      91.5000 |
++--------------+
+1 row in set (0.01 sec)
+
+mysql> select sum(marks) as totalmarks from kings_marks;
++------------+
+| totalmarks |
++------------+
+|        549 |
++------------+
+1 row in set (0.00 sec)
+
+mysql> select sum(marks) from kings_marks;
++------------+
+| sum(marks) |
++------------+
+|        549 |
++------------+
+1 row in set (0.00 sec)
+
+mysql>
